@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
+import login from "./login/login";
+import register from "./register/register";
+import axios from "axios";
+import dashboard from './dashboard';
+
+axios.defaults.headers = {
+  "Content-Type": "application/json",
+};
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Switch>
+          <Route path="/api/login/" exact component={login} />
+        </Switch>
+        <Switch>
+          <Route path="/api/register/" exact component={register} />
+        </Switch>
+
+        <Switch>
+          <Route path="/api/dashboard/" exact component={dashboard} />
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
