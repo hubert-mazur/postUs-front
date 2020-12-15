@@ -1,14 +1,9 @@
 import React, { useState } from "react";
 import { Route } from "react-router-dom";
 import { TextField, Button } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 import "./login.css";
 import axios from "axios";
-import { Alert, AlertTitle } from "@material-ui/lab";
-
-// axios.interceptors.request.use(request => {
-//     console.log('Starting Request', JSON.stringify(request, null, 2))
-//     return request
-//   })
 
 export default function (props) {
   const [email, setEmail] = useState("");
@@ -21,20 +16,17 @@ export default function (props) {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    console.log(JSON.stringify({ login: email, password: password }));
 
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/login",
-        JSON.stringify({ login: email, password: password })
+        "http://localhost:3000/login",
+        JSON.stringify({ email: email, password: password })
       );
-      axios.defaults.headers["auth-token"] = res.data;
-      // console.error(res.data);
+      localStorage.setItem("jwt", res.data);
       props.history.push("/api/dashboard");
     } catch (err) {
-      if (err) {
-        setError(err);
-      }
+      console.log(err.response.statusText);
+      setError(err.response);
     }
   }
 
@@ -45,10 +37,9 @@ export default function (props) {
           severity="error"
           onClick={(event) => {
             setError(null);
-            event.preventDefault();
           }}
         >
-          {error.response.data.meta}
+          {error.data.meta}
         </Alert>
       )}
       <form
@@ -80,7 +71,7 @@ export default function (props) {
           render={({ history }) => (
             <Button
               onClick={() => {
-                history.push("/api/register");
+                history.push("/register");
               }}
             >
               Register

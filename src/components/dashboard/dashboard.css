@@ -1,0 +1,38 @@
+.main {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.post {
+    border-radius: 25px;
+    border: 1px solid;
+    display: flex;
+    flex-direction: column;
+    margin: 15px 15px 15px 15px
+}
+.content {
+    background-color: rgb(59, 7, 94);
+    color: white;
+    margin: 5px 5px 5px 150px;
+    min-width: 100vh;
+    min-height: 10vh;
+    text-align: center;
+    letter-spacing: 1px;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+.comment {
+    background-color: rgb(128, 16, 16);
+    color: white;
+    border-radius: 10px;
+    margin: 10px 10px 10px 10px;
+    min-width: 100vh;
+}
+
+.reactions {
+    display: inline-flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    padding: 10px;
+}

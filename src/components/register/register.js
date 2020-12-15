@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { TextField, Button } from "@material-ui/core";
-import "./register.css";
-import axios from "axios";
 import { Alert } from "@material-ui/lab";
+import axios from "axios";
+import "./register.css";
 
 export default function (props) {
   const [email, setEmail] = useState("");
@@ -26,7 +26,7 @@ export default function (props) {
     event.preventDefault();
     try {
       await axios.post(
-        "http://localhost:3000/api/register",
+        "http://localhost:3000/register",
         JSON.stringify({
           email: email,
           password: password,
@@ -36,14 +36,13 @@ export default function (props) {
         })
       );
 
-      props.history.push("/api/login");
+      props.history.push("/login");
     } catch (err) {
       if (err) {
         console.error(err.response.data.body.details[0].message);
         setError(err.response.data.body.details[0].message);
       }
     }
-
   }
 
   return (
