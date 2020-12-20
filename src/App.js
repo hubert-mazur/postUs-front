@@ -1,17 +1,12 @@
 import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
 import login from "./components/login/login";
 import register from "./components/register/register";
-import axios from "axios";
 import Nav from "./components/nav/nav";
 import Wall from "./components/wall/wall";
 import Explore from "./components/explore/explore";
 import Dashboard from "./components/dashboard/dashboard";
 import "./App.css";
 
-axios.defaults.headers = {
-  "Content-Type": "application/json",
-  "auth-token": localStorage.getItem("jwt")
-};
 
 function App(props) {
   return (

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TextField, Button } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
-import axios from "axios";
+import axios from "../../instance";
 import "./register.css";
 
 export default function (props) {
@@ -26,7 +26,7 @@ export default function (props) {
     event.preventDefault();
     try {
       await axios.post(
-        "http://localhost:3000/register",
+        "register",
         JSON.stringify({
           email: email,
           password: password,

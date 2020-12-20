@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Route } from "react-router-dom";
+import { Route, withRouter } from "react-router-dom";
 import { TextField, Button } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import "./login.css";
-import axios from "axios";
+import axios from "../../instance";
 
-export default function (props) {
+function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -16,13 +16,15 @@ export default function (props) {
 
   async function handleSubmit(event) {
     event.preventDefault();
-
     try {
       const res = await axios.post(
-        "http://localhost:3000/login",
+        "login",
         JSON.stringify({ email: email, password: password })
       );
       localStorage.setItem("jwt", res.data);
+
+      axios.defaults.headers["auth-token"] = localStorage.getItem("jwt");
+
       props.history.push("/api/dashboard");
     } catch (err) {
       console.log(err.response.statusText);
@@ -82,3 +84,5 @@ export default function (props) {
     </div>
   );
 }
+
+export default withRouter(Login);

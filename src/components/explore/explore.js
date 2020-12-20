@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react";
 import { MenuItem, Select, CircularProgress } from "@material-ui/core";
 import { PersonAdd, PersonAddDisabled } from "@material-ui/icons";
 import { Alert } from "@material-ui/lab";
-import axios from "axios";
+import axios from "../../instance";
 import "./explore.css";
 
 function Explore(props) {
@@ -24,7 +24,7 @@ function Explore(props) {
   const getOther = async () => {
     try {
       if (!search.length) return null;
-      const res = await axios.get(`http://localhost:3000/api/people/other`, {});
+      const res = await axios.get(`api/people/other`, {});
       setPeople(res.data.body);
     } catch (err) {
       console.error(err.response);
@@ -35,10 +35,7 @@ function Explore(props) {
   const getFollowed = async () => {
     try {
       if (!search.length) return null;
-      const res = await axios.get(
-        `http://localhost:3000/api/people/followed`,
-        {}
-      );
+      const res = await axios.get(`api/people/followed`, {});
       setPeople(res.data.body);
     } catch (err) {
       console.error(err.response);
@@ -49,7 +46,7 @@ function Explore(props) {
   const getFollowing = async () => {
     try {
       if (!search.length) return null;
-      const res = await axios.get(`http://localhost:3000/api/people/following`);
+      const res = await axios.get(`api/people/following`);
 
       setPeople(res.data.body);
     } catch (err) {
@@ -61,10 +58,7 @@ function Explore(props) {
   const getMayKnow = async () => {
     try {
       if (!search.length) return null;
-      const res = await axios.get(
-        `http://localhost:3000/api/people/mayKnow`,
-        {}
-      );
+      const res = await axios.get(`api/people/mayKnow`, {});
 
       setPeople(res.data.body);
     } catch (err) {
@@ -75,10 +69,7 @@ function Explore(props) {
 
   const followPerson = async (person_id) => {
     try {
-      const res = await axios.put(
-        `http://localhost:3000/api/people/${person_id}/follow`,
-        {}
-      );
+      const res = await axios.put(`api/people/${person_id}/follow`, {});
       setPeople([]);
       handleSearch(search);
     } catch (err) {
@@ -89,9 +80,7 @@ function Explore(props) {
 
   const unfollowPerson = async (person_id) => {
     try {
-      const res = await axios.delete(
-        `http://localhost:3000/api/people/${person_id}/follow`
-      );
+      const res = await axios.delete(`api/people/${person_id}/follow`);
       setPeople([]);
       handleSearch(search);
     } catch (err) {

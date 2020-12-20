@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react";
 import { CircularProgress, TextField, Button } from "@material-ui/core";
 import { Favorite } from "@material-ui/icons";
 import { Alert } from "@material-ui/lab";
-import axios from "axios";
+import axios from "../../instance";
 import "./dashboard.css";
 
 function Dashboard(props, state) {
@@ -13,14 +13,9 @@ function Dashboard(props, state) {
   const likePost = async (post_id, like) => {
     try {
       if (like) {
-        const res = await axios.put(
-          `http://localhost:3000/api/post/${post_id}/like`,
-          {}
-        );
+        const res = await axios.put(`api/post/${post_id}/like`, {});
       } else {
-        const res = await axios.delete(
-          `http://localhost:3000/api/post/${post_id}/like`
-        );
+        const res = await axios.delete(`api/post/${post_id}/like`);
       }
       setPosts([]);
       getData();
@@ -36,7 +31,7 @@ function Dashboard(props, state) {
 
   const getData = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/dashboard", {});
+      const res = await axios.get("api/dashboard", {});
       // console.log(res.data.body);
 
       setPosts([res.data.body]);
@@ -49,7 +44,7 @@ function Dashboard(props, state) {
   const pushComment = async (post_id) => {
     try {
       const res = await axios.post(
-        `http://localhost:3000/api/post/${post_id}/comment`,
+        `api/post/${post_id}/comment`,
         { text: comment }
       );
       // console.error(res);

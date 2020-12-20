@@ -9,7 +9,7 @@ import {
 } from "@material-ui/icons";
 import { Alert } from "@material-ui/lab";
 import "./nav.css";
-import axios from "axios";
+import axios from "../../instance";
 
 function Nav(props) {
   const [name, setName] = useState("");
@@ -19,12 +19,7 @@ function Nav(props) {
   useEffect(() => {
     const getData = async () => {
       try {
-        const resp = await axios.get(
-          "http://localhost:3000/api/people/identity",
-          {
-            withCredentials: true,
-          }
-        );
+        const resp = await axios.get("api/people/identity", {});
 
         setName(resp.data.body[0]["a.name"]);
         setLastName(resp.data.body[0]["a.lastName"]);
@@ -40,6 +35,8 @@ function Nav(props) {
 
   const logout = () => {
     localStorage.setItem("jwt", null);
+    setName("");
+    setLastName("");
     props.history.push("/login");
   };
 
@@ -66,7 +63,8 @@ function Nav(props) {
           <AccountCircle></AccountCircle> {name} {lastName}
         </div>
         <div style={{ marginBottom: 50 }}>
-          <ExitToApp style={{fill:"red"}}
+          <ExitToApp
+            style={{ fill: "red" }}
             className="svg_icons"
             onClick={(event) => {
               logout();

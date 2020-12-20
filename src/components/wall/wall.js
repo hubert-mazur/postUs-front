@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react";
 import { TextField, Button } from "@material-ui/core";
 import { Favorite, Delete } from "@material-ui/icons";
 import { Alert } from "@material-ui/lab";
-import axios from "axios";
+import axios from "../../instance";
 import "../dashboard/dashboard.css";
 
 function Dashboard(props, state) {
@@ -16,12 +16,12 @@ function Dashboard(props, state) {
     try {
       if (like) {
         const res = await axios.put(
-          `http://localhost:3000/api/post/${post_id}/like`,
+          `api/post/${post_id}/like`,
           {}
         );
       } else {
         const res = await axios.delete(
-          `http://localhost:3000/api/post/${post_id}/like`
+          `api/post/${post_id}/like`
         );
       }
       setPosts([]);
@@ -38,7 +38,7 @@ function Dashboard(props, state) {
 
   const getData = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/wall", {
+      const res = await axios.get("api/wall", {
       });
 
       setPosts([res.data.body]);
@@ -52,7 +52,7 @@ function Dashboard(props, state) {
 
     try {
       const res = await axios.post(
-        `http://localhost:3000/api/post/${post_id}/comment`,
+        `api/post/${post_id}/comment`,
         { text: comment }
       );
       // console.error(res);
@@ -69,7 +69,7 @@ function Dashboard(props, state) {
 
     try {
       const res = await axios.post(
-        `http://localhost:3000/api/wall`,
+        `api/wall`,
         { content: newPost },
       );
 
@@ -86,7 +86,7 @@ function Dashboard(props, state) {
 
     try {
       const res = await axios.delete(
-        `http://localhost:3000/api/wall/${post_id}/post`
+        `api/wall/${post_id}/post`
       );
       // console.error(res);
       setPosts([]);
